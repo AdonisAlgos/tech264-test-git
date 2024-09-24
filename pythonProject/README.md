@@ -21,7 +21,7 @@ Make changes to README.md file and do another commit.
 Check differences between commits
 1. Run `git log` to display the logging info for both commits.
 2. Find the hash id associated with each commit log.
-3. Run `git diff <hash-id1> <hash-id2>
+3. Run `git diff <hash-id1> <hash-id2>`
 4. Alternatively, to check the difference between the most recent and previous commit run `git diff HEAD^ HEAD`
 
 Use `git checkout` to point to the previous commit and then back to the most recent commit.
