@@ -30,5 +30,5 @@ Use `git checkout` to point to the previous commit and then back to the most rec
 
 Restore a specific file to its state in a previous commit
 1. Find the commit id of the state where the file should be restored to.
-2. Run `git checkout <hash-id> -- <file-name>`
+2. Run `git checkout <hash-id> -- <file-name>` or `git checkout HEAD~1 -- <file-name>`
 3. Note: The file now should be at a staged state, commit the file!
