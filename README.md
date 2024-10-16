@@ -1,4 +1,4 @@
-# Task: Learn Git - Stage 1
+# Learning Git & Github
 
 Check you have git on your machine `git --version`
 
@@ -82,4 +82,76 @@ Option 2:
 2. Remove sensitive information from your local file.
 3. Remove .git folder from your local repo.
 
+## Connect to GitHub through SSH
+
+### Linking GitHub to a key
+
+1. Generate a new SSH key.
+2. Print the **public** key using `cat`. This will be given to GitHub.
+3. Navigate to your **Settings** on GitHub.
+4. Find **SSH Keys and GPG keys** and add **New SSH key**.
+5. Name the key appropriately.
+6. Insert what you printed and save.
+ 
+### On your Terminal Window
+
+1. Input the below command (yes, including the backticks inside!) to start the SSH agent.
+
+```bash
+eval `ssh-agent -s`
+```
+
+2. Register your `private key` with ssh. This will add your identity.
+
+```bash
+ssh-add <key-file-name>
+```
+
+3. **Test** your connection to GitHub using
+
+```bash
+ssh -T git@github.com
+```
+
+4. You will either get a prompt to then type `yes`, or it will say you're successfuly authenticated. This works **ANYWHERE** in your directory.
+ 
+### Make a GitHub Repo
+1. Once created, change quick setup option from **HTTPS** to **SSH**.
+2. Follow the GitHub instructions on the page, ensuring that the GitHub link does **NOT** start with **HTTPS**.
+
+## Task: Re-create SSH setup to authenticate to GitHub
+
+### Delete test repo and SSH key.
+
+1. Deleted `tech264-adonis-github-test` repo from github and local directory.
+2. Navigated to **Account** > **Settings** > **SSH and GPG keys** and **delete** the SSH key.
+3. Locally we cd ~/.ssh and delete the newlly created ssh key pair.
+
+### Use a pre-existing repo, and switch it over to use SSH keys
+
+1. We generate a new SSH key pair and sore them as `tech264-adonis-github-key`.
+2. We publish the publib ssh key on GitHUb within the **SSH and GPG keys** section on Github.
+3. Register the `private key` with ssh.
+
+```bash
+ssh-add tech264-adonis-github-key
+```
+4. Test the connection with GitHub
+
+```bash
+$ ssh -T git@github.com
+```
+5. Navigate to a current active github repo on the local machine already connected with the remote repo.
+
+6. Run the `git remote -v` command to display the connection type of my Git repository. This command lists all configured remote repositories along with their URLs, which helps me see if my repository is connected via HTTPS or SSH. If the URL starts with `https://`, it’s using an HTTPS connection. If it starts with `git@` (e.g., git@github.com:username/repo.git), it’s using SSH.
+
+```bash
+git remote -v
+```
+
+7. Within the Github repo there is a **Code** drop down that proviides the SSH origin connection. Run the below command accompanied with the SSH connection to switch origin from HTTPS to SSH. *Note: The command must be ran in whilst within the local repo*.
+
+```bash
+git remote set-url origin git@github.com:AdonisAlgos/tech264-test-git.git
+```
 
