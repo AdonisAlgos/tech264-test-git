@@ -1,5 +1,21 @@
 # Learning Git & Github
 
+## Introduction to git
+- [Learning Git \& Github](#learning-git--github)
+  - [Introduction to git](#introduction-to-git)
+  - [Task: Learning GitHub](#task-learning-github)
+  - [Connect to GitHub through SSH](#connect-to-github-through-ssh)
+    - [Linking GitHub to a key](#linking-github-to-a-key)
+    - [On your Terminal Window](#on-your-terminal-window)
+    - [Next steps on GitHub](#next-steps-on-github)
+  - [Task: Re-create SSH setup to authenticate to GitHub with a pre-existing repo with a HTTPS connection.](#task-re-create-ssh-setup-to-authenticate-to-github-with-a-pre-existing-repo-with-a-https-connection)
+    - [Delete test repo and SSH key.](#delete-test-repo-and-ssh-key)
+    - [Generate an SSH key, use a pre-existing repo to switch over to use an SSH connection.](#generate-an-ssh-key-use-a-pre-existing-repo-to-switch-over-to-use-an-ssh-connection)
+  - [Task: Document 'Use SSH authentication with a repo on GitHub'](#task-document-use-ssh-authentication-with-a-repo-on-github)
+    - [Delete test repo and SSH key.](#delete-test-repo-and-ssh-key-1)
+    - [Create a new local repo](#create-a-new-local-repo)
+
+
 Check you have git on your machine `git --version`
 
 Create your first Git repo named 'tech264-test-git'
@@ -33,7 +49,7 @@ Restore a specific file to its state in a previous commit
 2. Run `git checkout <hash-id> -- <file-name>` or `git checkout HEAD~1 -- <file-name>`
 3. Note: The file now should be at a staged state, commit the file!
 
-# Task: Learn GitHub - Stage 2
+## Task: Learning GitHub
 
 Given that we have created an account on GitHub we can follow the below steps to set up our online repo:
 
@@ -87,6 +103,8 @@ Option 2:
 ### Linking GitHub to a key
 
 1. Generate a new SSH key.
+   1. Navigate to the `.ssh/` folder within the `home` directory (if one doesn't exist create one).
+   2. Run `ssh-keygen -t rsa -b 4096 -C "your email address"` to generate the public and private key pair.
 2. Print the **public** key using `cat`. This will be given to GitHub.
 3. Navigate to your **Settings** on GitHub.
 4. Find **SSH Keys and GPG keys** and add **New SSH key**.
@@ -95,7 +113,7 @@ Option 2:
  
 ### On your Terminal Window
 
-1. Input the below command (yes, including the backticks inside!) to start the SSH agent.
+1. Input the below command to start the SSH agent.
 
 ```bash
 eval `ssh-agent -s`
@@ -113,13 +131,13 @@ ssh-add <key-file-name>
 ssh -T git@github.com
 ```
 
-4. You will either get a prompt to then type `yes`, or it will say you're successfuly authenticated. This works **ANYWHERE** in your directory.
+1. You will either get a prompt to then type `yes`, or it will say you're successfuly authenticated. This works in any directory.
  
-### Make a GitHub Repo
-1. Once created, change quick setup option from **HTTPS** to **SSH**.
+### Next steps on GitHub
+1. Once the repo is created (*needs to match the local git repo*), change quick setup option from **HTTPS** to **SSH**.
 2. Follow the GitHub instructions on the page, ensuring that the GitHub link does **NOT** start with **HTTPS**.
 
-## Task: Re-create SSH setup to authenticate to GitHub
+## Task: Re-create SSH setup to authenticate to GitHub with a pre-existing repo with a HTTPS connection.
 
 ### Delete test repo and SSH key.
 
@@ -127,7 +145,7 @@ ssh -T git@github.com
 2. Navigated to **Account** > **Settings** > **SSH and GPG keys** and **delete** the SSH key.
 3. Locally we cd ~/.ssh and delete the newlly created ssh key pair.
 
-### Use a pre-existing repo, and switch it over to use SSH keys
+### Generate an SSH key, use a pre-existing repo to switch over to use an SSH connection.
 
 1. We generate a new SSH key pair and sore them as `tech264-adonis-github-key`.
 2. We publish the publib ssh key on GitHUb within the **SSH and GPG keys** section on Github.
@@ -155,3 +173,53 @@ git remote -v
 git remote set-url origin git@github.com:AdonisAlgos/tech264-test-git.git
 ```
 
+## Task: Document 'Use SSH authentication with a repo on GitHub'
+
+### Delete test repo and SSH key.
+
+1. Deleted `tech264-adonis-github-test` repo from github and local directory.
+2. Navigated to **Account** > **Settings** > **SSH and GPG keys** and **delete** the SSH key.
+3. Locally we cd ~/.ssh and delete the newlly created ssh key pair.
+
+### Create a new local repo
+
+1. Navigate to the local location where the repo should live.
+2. Create a folder.
+
+```bash
+mkdir tech254-ssh
+```
+
+3. Initialise it as a git repo.
+
+```bash
+git init
+```
+
+4. Create a blank README.md file.
+
+```bash
+touch README.md
+```
+
+5. Add and commit changes to repo.
+
+```bash
+git add .
+git commit -m "First commit"
+```
+
+6. We generate a new SSH key and link it to our GitHub account.
+   * Steps documented at section --> **Connect to GitHub through SSH**
+7. After creating the GitHub repo there will be a **Code** dropdown button to be clicked. When clicked, select the SSH tab which would modify the instructions given by Github.
+
+![Pushing existing local repo to GitHub](./images/push-existing-repo-to-GitHub.png)
+
+1. Navigate to the section that specifies pushing an existing local repo and copy the commands.
+2.  Finally we ensure to be navigated within our local git repo and push our local repo status to the remote repo.
+
+```bash
+git remote add origin git@github.com:AdonisAlgos/tech254-ssh.git
+git branch -M main
+git push -u origin main
+```
